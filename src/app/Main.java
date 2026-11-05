@@ -7,13 +7,25 @@ package app;
 import controller.Agenda;
 import java.util.Scanner;
 import model.Contato;
+import model.ContatoComercial;
 import utils.ValidadorEmail;
+import repository.RepositorioContatos; 
+import database.ConexaoBD; // para criar a tabela
+import java.sql.SQLException; // para tratar o erro
+import repository.RepositorioContatosJDBC; // repositório do banco (troque o import do RepositorioContatos)
 
 public class Main {
     public static void main (String[] args){
     Scanner scanner = new Scanner(System.in);
     
-    Agenda agenda = new Agenda ();
+        try { // protege a criação da tabela
+            ConexaoBD.criarTabelas(); // cria a tabela contatos se ainda não existir
+        } catch (SQLException e) { // banco indisponível
+            System.out.println("Erro ao preparar o banco: " + e.getMessage()); // explica o problema
+            return; // encerra o programa
+        }
+
+        Agenda<Contato> agenda = new Agenda<>(new RepositorioContatosJDBC()); // única linha que troca memória por banco
     
     int opcao =0;
     
@@ -55,8 +67,20 @@ public class Main {
                     break;
                 }
                 
-                Contato contato = new Contato (nome, telefone, email);
-                agenda.adicionarContato(contato);
+                System.out.println("É contato comercial? (s/n): "); // pergunta nova
+                String resposta = scanner.nextLine(); // lê a resposta
+
+                Contato contato; // tipo pai: guarda Contato ou ContatoComercial
+
+                if (resposta.equalsIgnoreCase("s")) { // respondeu sim (aceita S ou s)
+                    System.out.println("Empresa: "); // pede o dado extra
+                    String empresa = scanner.nextLine(); // lê a empresa
+                    contato = new ContatoComercial(nome, telefone, email, empresa); // cria o filho
+                } else { // qualquer outra resposta
+                    contato = new Contato(nome, telefone, email); // cria o contato comum
+                }
+
+                agenda.adicionarContato(contato); // Agenda<Contato> aceita os dois tipos (polimorfismo)
                 
                 System.out.println("Contato adicionado com sucesso!");
                 break;

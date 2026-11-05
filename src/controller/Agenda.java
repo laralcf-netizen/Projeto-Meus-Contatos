@@ -4,37 +4,31 @@
  */
 package controller;
 
-import java.util.ArrayList;
 import model.Contato;
+import repository.Repositorio;
+import utils.OperacoesContato;
 
 
-public class Agenda {
-    private ArrayList<Contato> contatos = new ArrayList<>();
+public class Agenda <T extends Contato> {
+    private final Repositorio<T> repositorio;
     
-    public void adicionarContato (Contato contato){
-        contatos.add(contato);
+    public Agenda (Repositorio<T> repositorio){
+    this.repositorio = repositorio;
+    }
+    
+    public void adicionarContato (T contato){
+        repositorio.adicionar(contato);
     }
     public void listarContatos(){
-    for (Contato contato : contatos){
-    System.out.println(contato);
-    }
+        OperacoesContato.imprimir(repositorio.listar());
   }
     
-    public Contato buscarPorNome(String nome){
-        for (Contato contato : contatos){
-            if (contato.getNome().equalsIgnoreCase(nome)){
-            return contato;
-            }     
-        }
-        return null;
+    public T buscarPorNome(String nome){
+    return OperacoesContato.buscarPorNome(repositorio.listar(), nome);
     }
 
     public void removerContato(String nome) {
-        
-        Contato contato = buscarPorNome(nome);
-        
-        if (contato != null){
-            contatos.remove(contato);
+       if (OperacoesContato.removerPorNome(repositorio, nome)){
             
         System.out.println("Contato removido com sucesso!");
         } else{
