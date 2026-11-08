@@ -58,7 +58,7 @@
                 <version>0.0.8</version>
                 <configuration>
                     <!-- classe JavaFX executada pelo Run (F6); trocaremos pela tela da agenda na etapa 4B -->
-                    <mainClass>app.HelloFX</mainClass>
+                    <mainClass>app.AgendaApp</mainClass>
                     <options>
                         <!-- silencia o aviso de método nativo restrito do JDK 24 ou superior -->
                         <option>--enable-native-access=javafx.graphics</option>

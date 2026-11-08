@@ -7,6 +7,7 @@ package controller;
 import model.Contato;
 import repository.Repositorio;
 import utils.OperacoesContato;
+import java.util.List;
 
 
 public class Agenda <T extends Contato> {
@@ -27,6 +28,14 @@ public class Agenda <T extends Contato> {
     return OperacoesContato.buscarPorNome(repositorio.listar(), nome);
     }
 
+    public List<T> listar(){
+    return repositorio.listar();
+    }
+    
+    public boolean remover (T contato) {
+    return repositorio.remover(contato);
+    }
+    
     public void removerContato(String nome) {
        if (OperacoesContato.removerPorNome(repositorio, nome)){
             
