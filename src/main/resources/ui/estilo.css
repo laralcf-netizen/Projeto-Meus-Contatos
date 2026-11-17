@@ -1,0 +1,68 @@
+.root { 
+    -fx-font-family: "Segoe Ui", Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #f4f6fb;
+}
+
+.label{
+    -fx-text-fill: #2b3445;
+}
+
+.button{
+    -fx-background-color: #3f51b5;
+    -fx-text-fill: white;
+    -fx-background-radius: 6px;
+    -fx-padding: 7px 16px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #32409a;
+}
+
+.button:pressed{
+    -fx-background-color: #28357f;
+}
+
+.text-field{
+    -fx-background-color: white;
+    -fx-border-color:#c9d1e0;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 6px 10px;
+}
+
+.text-field:focused{
+    -fx-border-color: #3f51b5;
+}
+
+.botao-perigo { 
+    -fx-background-color: #c62828; 
+}
+
+.botao-perigo:hover { 
+    -fx-background-color: #a31f1f; 
+}
+
+.table-view .column-header-background, 
+.table-view .column-header, 
+.table-view .filler { 
+    -fx-background-color: #3f51b5; 
+    -fx-border-color: #5c6bc0; 
+    -fx-border-width: 0 1px 0 0; 
+
+.table-view .column-header .label { 
+    -fx-text-fill: white; 
+    -fx-font-weight: bold;
+
+.table-row-cell:filled:selected { 
+    -fx-background-color: #c5cae9; 
+}
+
+.table-row-cell:filled:selected .table-cell {
+    -fx-text-fill: #1a237e;
+}
+.status-bar { 
+    -fx-text-fill: #5b6b86; 
+    -fx-font-style: italic; 
+}
