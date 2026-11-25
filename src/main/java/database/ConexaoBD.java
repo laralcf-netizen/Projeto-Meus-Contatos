@@ -1,42 +1,42 @@
-package database; // pacote da camada de banco
+package database; 
 
-import java.io.FileInputStream; // lê o arquivo de configuração
-import java.io.IOException; // erro de leitura de arquivo
-import java.sql.Connection; // conexão aberta
-import java.sql.DriverManager; // fábrica de conexões
-import java.sql.SQLException; // erro de banco
-import java.sql.Statement; // executa comandos SQL
+import java.io.FileInputStream; 
+import java.io.IOException; 
+import java.sql.Connection; 
+import java.sql.DriverManager; 
+import java.sql.SQLException; 
+import java.sql.Statement; 
 
 
-import java.util.Properties; // estrutura chave=valor
+import java.util.Properties; 
 
-public class ConexaoBD { // utilitário de conexão
+public class ConexaoBD { 
 
-    private static final String ARQUIVO = "db.properties"; // procurado na raiz do projeto
+    private static final String ARQUIVO = "db.properties"; 
 
     private ConexaoBD() {
-    } // ninguém precisa instanciar
+    } 
 
-    public static Connection conectar() throws SQLException { // quem chama trata o SQLException
-        Properties p = new Properties(); // guarda url, usuario e senha
-        try (FileInputStream in = new FileInputStream(ARQUIVO)) { // abre o arquivo e fecha sozinho
-            p.load(in); // carrega as linhas chave=valor
-        } catch (IOException e) { // arquivo ausente ou ilegível
-            throw new SQLException("Não foi possível ler " + ARQUIVO + " (está na raiz do projeto?)", e); // mensagem clara
+    public static Connection conectar() throws SQLException { 
+        Properties p = new Properties(); 
+        try (FileInputStream in = new FileInputStream(ARQUIVO)) { 
+            p.load(in); 
+        } catch (IOException e) { 
+            throw new SQLException("Não foi possível ler " + ARQUIVO + " (está na raiz do projeto?)", e); 
         }
-        return DriverManager.getConnection(p.getProperty("url"), p.getProperty("usuario"), p.getProperty("senha")); // abre a conexão
+        return DriverManager.getConnection(p.getProperty("url"), p.getProperty("usuario"), p.getProperty("senha"));
     }
 
-    public static void criarTabelas() throws SQLException { // será usado na etapa 6
-        String sql = "CREATE TABLE IF NOT EXISTS contatos (" // só cria se não existir
-                + "id INT AUTO_INCREMENT PRIMARY KEY, " // MySQL usa AUTO_INCREMENT
-                + "nome VARCHAR(100) NOT NULL, " // obrigatório
-                + "telefone VARCHAR(20), " // opcional
-                + "email VARCHAR(120) NOT NULL, " // obrigatório
+    public static void criarTabelas() throws SQLException { 
+        String sql = "CREATE TABLE IF NOT EXISTS contatos (" 
+                + "id INT AUTO_INCREMENT PRIMARY KEY, " 
+                + "nome VARCHAR(100) NOT NULL, " 
+                + "telefone VARCHAR(20), " 
+                + "email VARCHAR(120) NOT NULL, " 
 
-                + "empresa VARCHAR(100)" // NULL para contato comum
-                + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"; // motor padrão e acentos
-        try (Connection conn = conectar(); Statement st = conn.createStatement()) { // fecha tudo sozinho
+                + "empresa VARCHAR(100)" 
+                + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"; 
+        try (Connection conn = conectar(); Statement st = conn.createStatement()) { 
             st.execute(sql); // executa o comando
         }
     }

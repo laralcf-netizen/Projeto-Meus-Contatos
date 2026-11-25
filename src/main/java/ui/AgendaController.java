@@ -1,42 +1,42 @@
 package ui;
 
-import controller.Agenda; // a agenda que já usamos no console
-import exceptions.RepositorioException; // erro traduzido do banco (não verificada)
-import javafx.beans.property.SimpleStringProperty; // valor de texto "observável" para as células
-import javafx.collections.FXCollections; // fábrica de listas observáveis
-import javafx.collections.ObservableList; // lista que avisa a tabela quando muda
-import javafx.fxml.FXML; // marca o que o FXML enxerga (campos e métodos)
-import javafx.scene.control.Alert; // janelas de aviso
-import javafx.scene.control.ButtonType; // botões padrão das janelas de aviso (Sim/Não)
-import javafx.scene.control.CheckBox; // caixa de seleção
-import javafx.scene.control.Label; // texto fixo
-import javafx.scene.control.TableColumn; // coluna da tabela
-import javafx.scene.control.TableView; // a tabela
-import javafx.scene.control.TextField; // campo de texto
-import model.Contato; // contato comum
-import model.ContatoComercial; // contato com empresa
-import repository.RepositorioContatosJDBC; // repositório ligado ao MySQL
-import utils.ValidadorEmail; // validação de e-mail que já existe
+import controller.Agenda; 
+import exceptions.RepositorioException; 
+import javafx.beans.property.SimpleStringProperty; 
+import javafx.collections.FXCollections; 
+import javafx.collections.ObservableList; 
+import javafx.fxml.FXML; 
+import javafx.scene.control.Alert; 
+import javafx.scene.control.ButtonType; 
+import javafx.scene.control.CheckBox; 
+import javafx.scene.control.Label; 
+import javafx.scene.control.TableColumn; 
+import javafx.scene.control.TableView; 
+import javafx.scene.control.TextField; 
+import model.Contato; 
+import model.ContatoComercial; 
+import repository.RepositorioContatosJDBC; 
+import utils.ValidadorEmail; 
 
-public class AgendaController { // controla os eventos da tela AgendaView.fxml
+public class AgendaController { 
 
-    private final Agenda<Contato> agenda = new Agenda<>(new RepositorioContatosJDBC()); // a mesma Agenda do console e do AgendaFX
-    private final ObservableList<Contato> dados = FXCollections.observableArrayList(); // lista observável: a tabela atualiza sozinha
+    private final Agenda<Contato> agenda = new Agenda<>(new RepositorioContatosJDBC()); 
+    private final ObservableList<Contato> dados = FXCollections.observableArrayList(); 
 
-    @FXML private TextField campoNome; // ligado ao fx:id="campoNome" do FXML (o nome do campo tem que ser idêntico)
-    @FXML private TextField campoTelefone; // ligado ao fx:id="campoTelefone"
-    @FXML private TextField campoEmail; // ligado ao fx:id="campoEmail"
-    @FXML private CheckBox checkComercial; // ligado ao fx:id="checkComercial"
-    @FXML private TextField campoEmpresa; // ligado ao fx:id="campoEmpresa"
-    @FXML private TextField campoBusca; // ligado ao fx:id="campoBusca"
-    @FXML private TableView<Contato> tabela; // ligado ao fx:id="tabela" (generics: linhas do tipo Contato)
-    @FXML private TableColumn<Contato, String> colNome; // coluna do nome (linhas Contato, células String)
-    @FXML private TableColumn<Contato, String> colTelefone; // coluna do telefone
-    @FXML private TableColumn<Contato, String> colEmail; // coluna do e-mail
-    @FXML private TableColumn<Contato, String> colEmpresa; // coluna da empresa
-    @FXML private Label status; // ligado ao fx:id="status"
+    @FXML private TextField campoNome; 
+    @FXML private TextField campoTelefone; 
+    @FXML private TextField campoEmail; 
+    @FXML private CheckBox checkComercial; 
+    @FXML private TextField campoEmpresa; 
+    @FXML private TextField campoBusca; 
+    @FXML private TableView<Contato> tabela; 
+    @FXML private TableColumn<Contato, String> colNome; 
+    @FXML private TableColumn<Contato, String> colTelefone; 
+    @FXML private TableColumn<Contato, String> colEmail; 
+    @FXML private TableColumn<Contato, String> colEmpresa; 
+    @FXML private Label status;
 
-    @FXML // o FXMLLoader chama este método sozinho, depois de preencher os campos acima
+    @FXML 
     private void initialize() { // aqui configuramos o que o FXML não consegue descrever
         colNome.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().getNome())); // de cada Contato, mostra o nome
         colTelefone.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().getTelefone())); // mostra o telefone

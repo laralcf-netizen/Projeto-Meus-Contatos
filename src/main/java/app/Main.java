@@ -9,23 +9,22 @@ import java.util.Scanner;
 import model.Contato;
 import model.ContatoComercial;
 import utils.ValidadorEmail;
-import repository.RepositorioContatos; 
-import database.ConexaoBD; // para criar a tabela
-import java.sql.SQLException; // para tratar o erro
-import repository.RepositorioContatosJDBC; // repositório do banco (troque o import do RepositorioContatos)
+import database.ConexaoBD; 
+import java.sql.SQLException; 
+import repository.RepositorioContatosJDBC; 
 
 public class Main {
     public static void main (String[] args){
     Scanner scanner = new Scanner(System.in);
     
-        try { // protege a criação da tabela
-            ConexaoBD.criarTabelas(); // cria a tabela contatos se ainda não existir
-        } catch (SQLException e) { // banco indisponível
-            System.out.println("Erro ao preparar o banco: " + e.getMessage()); // explica o problema
-            return; // encerra o programa
+        try { 
+            ConexaoBD.criarTabelas(); 
+        } catch (SQLException e) { 
+            System.out.println("Erro ao preparar o banco: " + e.getMessage()); 
+            return; 
         }
 
-        Agenda<Contato> agenda = new Agenda<>(new RepositorioContatosJDBC()); // única linha que troca memória por banco
+        Agenda<Contato> agenda = new Agenda<>(new RepositorioContatosJDBC()); 
     
     int opcao =0;
     
@@ -67,20 +66,20 @@ public class Main {
                     break;
                 }
                 
-                System.out.println("É contato comercial? (s/n): "); // pergunta nova
-                String resposta = scanner.nextLine(); // lê a resposta
+                System.out.println("É contato comercial? (s/n): "); 
+                String resposta = scanner.nextLine(); 
 
-                Contato contato; // tipo pai: guarda Contato ou ContatoComercial
+                Contato contato; 
 
-                if (resposta.equalsIgnoreCase("s")) { // respondeu sim (aceita S ou s)
-                    System.out.println("Empresa: "); // pede o dado extra
-                    String empresa = scanner.nextLine(); // lê a empresa
-                    contato = new ContatoComercial(nome, telefone, email, empresa); // cria o filho
-                } else { // qualquer outra resposta
-                    contato = new Contato(nome, telefone, email); // cria o contato comum
+                if (resposta.equalsIgnoreCase("s")) { 
+                    System.out.println("Empresa: "); 
+                    String empresa = scanner.nextLine(); 
+                    contato = new ContatoComercial(nome, telefone, email, empresa); 
+                } else { 
+                    contato = new Contato(nome, telefone, email); 
                 }
 
-                agenda.adicionarContato(contato); // Agenda<Contato> aceita os dois tipos (polimorfismo)
+                agenda.adicionarContato(contato); 
                 
                 System.out.println("Contato adicionado com sucesso!");
                 break;

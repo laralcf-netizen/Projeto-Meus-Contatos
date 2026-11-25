@@ -22,9 +22,9 @@ public class ContatoComercial extends Contato{
         this.empresa = empresa;
     }
     
-    @Override // sobrescreve o toString herdado de Contato
-    public String toString() { // texto mostrado no "Listar"
-        return super.toString() + " Empresa: " + getEmpresa(); // reaproveita o texto do pai e acrescenta a empresa (ajuste ao nome do seu getter)
+    @Override 
+    public String toString() { 
+        return super.toString() + " Empresa: " + getEmpresa();
     }
     
 }
