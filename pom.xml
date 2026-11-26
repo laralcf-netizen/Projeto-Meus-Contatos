@@ -14,7 +14,6 @@
     <properties>
         <!-- compila para Java 21 (funciona em JDK 21 ou superior) -->
         <maven.compiler.release>21</maven.compiler.release>
-        <!-- acentos corretos nos arquivos-fonte -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- versão do JavaFX (o Maven baixa sozinho, com as bibliotecas nativas) -->
         <javafx.version>21.0.5</javafx.version>
@@ -33,14 +32,13 @@
             <artifactId>javafx-fxml</artifactId>
             <version>${javafx.version}</version>
         </dependency>
-        <!-- driver JDBC do MySQL (só é necessário na hora de executar) -->
+        <!-- driver JDBC do MySQL -->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <version>9.4.0</version>
             <scope>runtime</scope>
         </dependency>
-        <!-- JUnit 4 (os testes que você já escreveu usam org.junit.Test) -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -57,7 +55,6 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <!-- classe JavaFX executada pelo Run (F6); trocaremos pela tela da agenda na etapa 4B -->
                     <mainClass>app.AgendaApp</mainClass>
                     <options>
                         <!-- silencia o aviso de método nativo restrito do JDK 24 ou superior -->
